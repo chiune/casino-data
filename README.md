@@ -1,1 +1,1 @@
-# casino-api
+# Casino API
