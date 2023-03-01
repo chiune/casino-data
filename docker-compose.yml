@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  mongodb:
+    image: mongo:${MONGODB_VERSION}
+    restart: always
+    ports:
+      - 27017:${MONGODB_PORT}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+  
+  redis:
+    image: redis:${REDIS_VERSION}
+    restart: always

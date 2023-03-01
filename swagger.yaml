@@ -1,0 +1,130 @@
+openapi: 3.0.0
+
+info:
+  version: 1.0.0
+  title: Casino Data
+  description: Designed APIs based on Casino Data
+
+servers:
+  - url: 'https://localhost/casino/v1'
+
+paths:
+  /tables:
+    get:
+      description: Return a list of gaming tables
+      tags:
+        - Table API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/gaming-date'
+                  - properties:
+                      tables:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/table'
+
+  /tables/{dicjTableNumber}:
+    get:
+      description: Return a list of gaming tables
+      tags:
+        - Table API
+      parameters:
+        - in: path
+          name: dicjTableNumber
+          required: true
+          schema:
+            type: string
+            example: 'VCL12345'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/gaming-date'
+                  - $ref: '#/components/schemas/table'
+          
+components:
+  schemas:
+    gaming-date:
+      type: object
+      properties:
+        gamingDate:
+          type: string
+        gamingTime:
+          type: string
+    table:
+      type: object
+      properties:
+        dicjTableNumber:
+          type: string
+        casinoTableNumber:
+          type: string
+        gameType:
+          type: string
+        segment:
+          type: string
+          enum: [vip, mass, junket, premium]
+        foreigner:
+          type: boolean
+        tableDrop:
+          type: integer
+        markers:
+          type: integer
+        chips:
+          type: string
+        tableOpener:
+          type: string
+        tableCredit:
+          type: integer
+        tableFill:
+          type: integer
+        tableCloser:
+          type: integer
+        memo:
+          type: integer
+    slot:
+      type: object
+      properties:
+        machineId:
+          type: string
+        isLT:
+          type: boolean
+        realtimeMeter:
+          type: integer
+    revenue:
+      type: object
+      properties:
+        tableGrossRevenue:
+          type: integer
+        slotGrossRevenue:
+          type: integer
+    
+    sales:
+      type: object
+      properties:
+        visitorCount:
+          type: integer
+        chipSalesJunket:
+          type: integer
+        chipSalesPremium:
+          type: integer
+        bigWin:
+          type: object
+        bigLoss:
+          type: object
+  
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
