@@ -1,0 +1,28 @@
+plugins{
+    id 'java'
+}
+
+group = 'com.casino'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	testCompileOnly {
+		extendsFrom annotationProcessor
+	}
+	testAnnotationProcessor {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
