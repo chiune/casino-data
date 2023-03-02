@@ -1,5 +1,0 @@
-rootProject.name = 'casino'
-
-include 'library'
-include 'table-service'
-include 'slot-service'
